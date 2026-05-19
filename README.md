@@ -1,136 +1,264 @@
 # Portfolio Component Patterns
 
-A reference for building a personal developer portfolio in Next.js 15:
-without Framer Motion, without a UI library, without a CMS.
+  A reference for building a personal developer portfolio in Next.js
+  16:
+  without Framer Motion, without a UI library, without a CMS, without
+  a
+  charting library, and without Three.js — including the WebGL hero
+  shader
+  and the View Transitions navigation.
 
-This repository documents the reusable component and hook patterns
-behind [valentinoveljanovski.de](https://valentinoveljanovski.de). The
-portfolio is itself a public site, what's documented here is the **why**
-behind specific implementation choices, plus the generic,
-copy-paste-ready versions of the components that aren't tied to my
-content.
+  This repository documents the reusable component and hook patterns
+  behind [valentinoveljanovski.de](https://valentinoveljanovski.de).
+  The
+  portfolio is itself a public site, what's documented here is the
+  **why**
+  behind specific implementation choices, plus the generic,
+  copy-paste-ready versions of the components that aren't tied to my
+  content.  
 
-> The full source code of the portfolio website is not published here.
-> This repository contains documentation and selected pattern snippets,
-> not a clone-and-deploy template. The content (case studies, copy,
-> project lists) is mine, lives at the live URL, and is not
-> re-distributed.
+  > The full source code of the portfolio website is not published
+  here.
+  > This repository contains documentation and selected pattern
+  snippets,
+  > not a clone-and-deploy template. The content (case studies, copy,
+  > project lists) is mine, lives at the live URL, and is not
+  > re-distributed.
 
----
+  ---
 
-## What this repo documents
+  ## What this repo documents
 
-A lot of "developer portfolio templates" lean hard on Framer Motion,
-shadcn/ui, and one of a dozen template repos. The portfolio this repo
-references deliberately does none of that. It uses:
+  A lot of "developer portfolio templates" lean hard on Framer Motion,
+  shadcn/ui, GSAP, Three.js, and one of a dozen template repos. The
+  portfolio this repo references deliberately does none of that. It
+  uses:
 
-- **Custom IntersectionObserver hook** instead of Framer Motion:
-  lighter bundle, no animation library dependency, full control over
-  timing.
-- **Custom SVG architecture diagrams** instead of a charting library:
-  every case study has a unique flow, generic chart components don't
-  fit, drawing in SVG is faster than fighting a generic API.
-- **State-machine typewriter** instead of a typewriter library, it's
-  ~30 lines of TypeScript, supports cycling through multiple strings
-  with typing/waiting/deleting phases.
-- **Consistent 9-section case study layout** instead of a CMS, each
-  case study is a `.tsx` file that imports a small set of primitives.
-  New case studies copy the structure; deviations are intentional.
-
-The patterns documented here are the parts that another developer might
-want to lift for their own portfolio without dragging in the specific
-content.
-
----
-
-## Repository structure
-
-```
-.
-├── README.md                              ← you are here
-├── package.json                           ← dependency reference
-├── tsconfig.json                          ← TypeScript config
-├── .gitignore
-├── docs/
-│   ├── architecture.md                    ← Next.js 15 App Router shape
-│   ├── intersection-observer-reveal.md    ← scroll-reveal without Framer
-│   ├── case-study-layout-pattern.md       ← 9-section structure
-│   └── svg-architecture-diagrams.md       ← custom flow diagrams in SVG
-└── snippets/
-    ├── README.md
-    ├── use-scroll-reveal.ts               ← custom IntersectionObserver hook
-    ├── scroll-reveal-wrapper.tsx          ← <ScrollReveal> wrapper component
-    ├── typewriter-cycle.tsx               ← role-cycling typewriter
-    └── architecture-diagram.tsx           ← SVG flow diagram component
-```
-
----
-
-## Tech stack
-
-- **Framework:** Next.js 15 (App Router)
-- **Language:** TypeScript
-- **Styling:** Inline CSS variables (no Tailwind, no CSS-in-JS library):
-  uses CSS custom properties on `:root` and `style={{...}}` props
-- **Animation:** Native IntersectionObserver + CSS transitions
-- **Hosting:** Vercel
-
-The "no Tailwind" choice surprises people. The reasoning: a portfolio is
-mostly long-form text, not utility-heavy UI. Inline styles plus a small
-set of CSS variables for the design tokens gives full type-safety with
-zero build-tool friction. For a UI component library, Tailwind would be
-the right answer; for a portfolio, it isn't.
-
----
-
-## What this repo does NOT contain
-
-Scope of this repository:
-
-- **The case study content.** Every case study on the live site is a
-  hand-written `.tsx` file with detailed architecture documentation.
-  Those files live in the private portfolio repo and are not republished
-  here. They link back to *other* public pattern repositories that
-  contain code snippets and architecture documentation.
-- **The Hero copy, About copy, contact form copy.** These are personal
+  - **Custom IntersectionObserver hook** instead of Framer Motion:
+    lighter bundle, no animation library dependency, full control over
+    timing. The observer self-disconnects after the first hit so
+    scrolling up and back down doesn't replay the reveal.
+  - **View Transitions API navigation hook** instead of a routing or
+    animation library: wraps Next.js App Router `router.push` in
+    `document.startViewTransition` so a clicked project card morphs
+  into
+    the case-study header using only browser-native APIs.
+  Feature-detected;
+    falls back to plain navigation on older browsers and under
+    `prefers-reduced-motion`. The matching pair is declared via a
+    shared `view-transition-name` on source card and destination
+  header.
+  - **Hand-written WebGL hero shader** instead of Three.js: a ~30-line
+    GLSL fragment shader with FBM noise drives the hero ambient
+    background. Six hard mount guards (reduced-motion,
+    `pointer: coarse`, viewport width, GL context acquisition, shader
+    compile/link, `webglcontextlost`) so the experience degrades to a
+    CSS conic-gradient fallback whenever any guard fails. Source is
+    ~5 KB vs Three.js (~150 KB).
+  - **SplitText per-letter reveal** instead of a typography library:
+    renders each character as an `inline-block` span with a staggered
+    `animation-delay`. `aria-label` on the parent preserves the full
+    string for screen readers; the per-character spans are
+    `aria-hidden`. A nowrap wrapper keeps multi-letter words from
+    breaking across lines on narrow viewports.
+  - **Seamless CSS marquee with inline brand SVGs** instead of an icon
+    font or a carousel library: a duplicated-track loop using
+    `transform: translateX(0 → -50%)` with edge `mask-image` gradient
+    paths (no `@simpleicons` package, no icon font CDN).
+  Pause-on-hover
+    gated behind `(hover: hover)`; pauses entirely when the parent
+    section is off-screen via IntersectionObserver.
+  - **Scroll-progress ring** driven by SVG `stroke-dashoffset` instead
+    of a progress library: a 2 px accent ring around the back-to-top
+    button fills clockwise as the user scrolls. State updates via a
+    rAF-throttled scroll handler.
+  - **Custom SVG architecture diagrams** instead of a charting
+  library:
+    every case study has a unique flow, generic chart components don't
+    fit, drawing in SVG is faster than fighting a generic API.
+  - **State-machine typewriter** instead of a typewriter library, it's
+    ~30 lines of TypeScript, supports cycling through multiple strings
+    with typing / waiting / deleting phases. Pauses when the hero is
+    off-screen or the tab is hidden. 
+  - **Consistent 9-section case study layout** instead of a CMS, each
+    case study is a `.tsx` file that imports a small set of
+  primitives.
+    New case studies copy the structure; deviations are intentional.
+    
+  Across all patterns: every effect respects `prefers-reduced-motion`
+  (global clamp on transitions, animations, and scroll-behavior), and
+  hover behaviour is gated behind
+  `@media (hover: hover) and (pointer: fine)` so touch devices never
+  get
+  sticky hover.
+  
+  The patterns documented here are the parts that another developer
+  might
+  want to lift for their own portfolio without dragging in the
+  specific
   content.
-- **CV PDF.** Lives at the live site under `/valentino-veljanovski-cv.pdf`.
-- **Custom assets.** Logos, illustrations, fonts.
 
----
+  ---
 
-## About
+  ## Repository structure
 
-Built by [Valentino Veljanovski](https://valentinoveljanovski.de),
-automation developer based in München. The case study for this portfolio
-is at
-[valentinoveljanovski.de/projects/portfolio](https://valentinoveljanovski.de/projects/portfolio).
+  .
+  ├── README.md                              ← you are here
+  ├── package.json                           ← dependency reference
+  ├── tsconfig.json                          ← TypeScript config
+  ├── .gitignore
+  ├── docs/
+  │   ├── architecture.md                    ← Next.js 16 App Router
+  shape
+  │   ├── intersection-observer-reveal.md    ← scroll-reveal without
+  Framer
+  │   ├── view-transitions-nav.md            ← cross-page morph via
+  native API
+  │   ├── webgl-hero-shader.md               ← FBM noise + six mount
+  guards
+  │   ├── reduced-motion-and-touch.md        ← accessibility patterns
+  │   ├── case-study-layout-pattern.md       ← 9-section structure
+  │   └── svg-architecture-diagrams.md       ← custom flow diagrams in
+   SVG
+  └── snippets/
+      ├── README.md
+      ├── use-scroll-reveal.ts               ← custom
+  IntersectionObserver hook
+      ├── scroll-reveal-wrapper.tsx          ←  wrapper component
+      ├── use-view-transition-router.ts      ← View Transitions
+  navigation hook
+      ├── hero-shader.tsx                    ← hand-written WebGL
+  background
+      ├── split-text.tsx                     ← per-letter reveal
+  component
+      ├── tech-stack-marquee.tsx             ← seamless
+  duplicated-track marquee
+      ├── back-to-top-progress.tsx           ← scroll-progress SVG
+  ring
+      ├── typewriter-cycle.tsx               ← role-cycling typewriter
+      └── architecture-diagram.tsx           ← SVG flow diagram
+  component 
 
-Companion repositories cover related patterns:
+  ---
 
-- [`Valentino-Veljanovski/DISPO`](https://github.com/Valentino-Veljanovski/DISPO):
-  Microsoft 365 + DocuSign + AI-assisted operations
-- [`Valentino-Veljanovski/Reklamation`](https://github.com/Valentino-Veljanovski/Reklamation):
-  Slack-based case management
-- [`Valentino-Veljanovski/BauScope-Control-Center`](https://github.com/Valentino-Veljanovski/BauScope-Control-Center):
-  Role-based Slack platform with DocuSign HMAC
-- [`Valentino-Veljanovski/BauScope-3D`](https://github.com/Valentino-Veljanovski/BauScope-3D):
-  Next.js B2B landing page patterns
-- [`Valentino-Veljanovski/static-corporate-site-patterns`](https://github.com/Valentino-Veljanovski/static-corporate-site-patterns):
-  PHP + Apache + service worker patterns
+  ## Tech stack
 
----
+  - **Framework:** Next.js 16 (App Router) on React 19
+  - **Language:** TypeScript
+  - **Styling:** CSS variables on `:root` + `style={{...}}` inline
+  props +
+    styled-jsx via `dangerouslySetInnerHTML` for keyframes and media
+    queries. Tailwind is imported in `globals.css` for its base reset
+    only; no utility classes are used in components.
+  - **Animation:** Native IntersectionObserver, View Transitions API,
+    CSS keyframes, `mask-image` gradients, SVG `stroke-dashoffset`
+  - **Graphics:** Hand-written WebGL fragment shader (no Three.js, no
+    OGL), inline Simple Icons SVG paths for brand logos
+  - **Hosting:** Vercel
+  
+  The "minimal Tailwind" choice surprises people. The reasoning: a
+  portfolio is mostly long-form text, not utility-heavy UI. Inline
+  styles
+  + styled-jsx + a small set of CSS variables for design tokens gives
+  full type-safety, keeps the design language consistent via tokens,
+  and
+  avoids utility-class noise across components. Tailwind stays
+  imported
+  for its CSS reset only. For a UI component library, going all-in on
+  Tailwind would be the right answer; for a portfolio, it isn't.
+  
+  The "no animation library" choice is the deliberate parallel. Framer
+  Motion adds ~30 KB gzipped to do what an IntersectionObserver + a
+  CSS
+  transition does in a 25-line hook. GSAP adds more. The custom
+  approach
+  also runs the visible animations off the main thread (CSS keyframes,
+  GPU transforms) rather than via `requestAnimationFrame` in JS —
+  which
+  matters when the browser is also painting a new route or running
+  hydration.
+  
+  The WebGL shader is the one place where doing it from scratch is
+  harder    
+  than reaching for a library — Three.js would be ~30 lines to set
+  this
+  up. The hand-written version is ~200 lines including all six mount
+  guards, the rAF loop, the IntersectionObserver pause, the
+  `visibilitychange` pause, the `webglcontextlost` handler, and the GL
+  cleanup. It ships at ~5 KB instead of ~150 KB and demonstrates that
+  the
+  underlying browser API is well understood.
 
-## Viewing Notice
+  ---
 
-This repository is published for portfolio demonstration and educational
-viewing only.
+  ## What this repo does NOT contain
 
-All code, documentation, diagrams, and content in this repository remain
-the intellectual property of the author. **All rights reserved.**
+  Scope of this repository:
 
-No license is granted, expressed or implied, for reuse, redistribution,
-modification, or commercial use of any material in this repository
-without prior written permission from the author.
+  - **The case study content.** Every case study on the live site is a
+    hand-written `.tsx` file with detailed architecture documentation.
+    Those files live in the private portfolio repo and are not
+  republished
+    here. They link back to *other* public pattern repositories that
+    contain code snippets and architecture documentation.
+  - **The Hero copy, About copy, contact form copy.** These are
+  personal
+    content.
+  - **The full HeroShader component** with the exact accent palette,
+    Hero-specific positioning, and the layered conic-gradient
+  fallback.
+    The snippet here is a reference version; full integration is in
+  the
+    private portfolio repo.
+  - **CV PDF.** Lives at the live site under
+  `/valentino-veljanovski-cv.pdf`.
+  - **Custom assets.** Logos, illustrations, fonts.
 
-For licensing or collaboration inquiries, contact: <valentinoveljanovski@outlook.com>
+  ---
+
+  ## About
+
+  Built by [Valentino Veljanovski](https://valentinoveljanovski.de),
+  automation developer based in München. The case study for this
+  portfolio
+  is at
+  [valentinoveljanovski.de/projects/portfolio](https://valentinoveljan
+  ovski.de/projects/portfolio).
+  
+  Companion repositories cover related patterns:
+
+  - [`Valentino-Veljanovski/DISPO`](https://github.com/Valentino-Velja
+  novski/DISPO):
+    Microsoft 365 + DocuSign + AI-assisted operations
+  - [`Valentino-Veljanovski/Reklamation`](https://github.com/Valentino
+  -Veljanovski/Reklamation):
+    Slack-based case management 
+  - [`Valentino-Veljanovski/BauScope-Control-Center`](https://github.c
+  om/Valentino-Veljanovski/BauScope-Control-Center):
+    Role-based Slack platform with DocuSign HMAC
+  - [`Valentino-Veljanovski/BauScope-3D`](https://github.com/Valentino
+  -Veljanovski/BauScope-3D):
+    Next.js B2B landing page patterns
+  - [`Valentino-Veljanovski/static-corporate-site-patterns`](https://g
+  ithub.com/Valentino-Veljanovski/static-corporate-site-patterns):
+    PHP + Apache + service worker patterns
+
+  ---
+
+  ## Viewing Notice
+
+  This repository is published for portfolio demonstration and
+  educational
+  viewing only.
+
+  All code, documentation, diagrams, and content in this repository
+  remain
+  the intellectual property of the author. **All rights reserved.**
+
+  No license is granted, expressed or implied, for reuse,
+  redistribution,
+  modification, or commercial use of any material in this repository
+  without prior written permission from the author.
+
+  For licensing or collaboration inquiries, contact:
+  <valentinoveljanovski@outlook.com>
