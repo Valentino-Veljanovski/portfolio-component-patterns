@@ -208,7 +208,7 @@ Companion repositories cover related patterns:
 - [`Valentino-Veljanovski/multi-region-dispatch-automation-pattern`](https://github.com/Valentino-Veljanovski/multi-region-dispatch-automation-pattern): Microsoft 365, DocuSign, Slack, and n8n dispatch automation patterns.
 - [`Valentino-Veljanovski/internal-reclamation-case-management-dashboard`](https://github.com/Valentino-Veljanovski/internal-reclamation-case-management-dashboard): Slack-based reclamation case management dashboard patterns.
 - [`Valentino-Veljanovski/consent-based-3d-scan-control-center`](https://github.com/Valentino-Veljanovski/consent-based-3d-scan-control-center): Role-based Slack control center for consent-first 3D scan operations.
-- [`Valentino-Veljanovski/BauScope-3D`](https://github.com/Valentino-Veljanovski/BauScope-3D): Next.js B2B landing page patterns.
+- [`Valentino-Veljanovski/3d-service-landing-page-patterns`](https://github.com/Valentino-Veljanovski/3d-service-landing-page-patterns): Next.js B2B landing page patterns.
 - [`Valentino-Veljanovski/static-corporate-site-patterns`](https://github.com/Valentino-Veljanovski/static-corporate-site-patterns): PHP, Apache, and service worker patterns.
 
 ---
