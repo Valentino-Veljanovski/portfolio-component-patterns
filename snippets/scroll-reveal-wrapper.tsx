@@ -1,5 +1,5 @@
 /**
- * ScrollReveal — wrapper component
+ * ScrollReveal - wrapper component
  * =================================
  *
  * Wraps children with a fade-and-slide-up CSS transition that
@@ -18,7 +18,7 @@
  *     <p>Paragraph 2.</p>
  *   </ScrollReveal>
  *
- * The `delay` prop staggers child reveals — each cascades 0.1s
+ * The `delay` prop staggers child reveals - each cascades 0.1s
  * after the previous, without per-child manual timing.
  *
  * Production reminder: this version does NOT respect the

@@ -4,7 +4,7 @@
   16:
   without Framer Motion, without a UI library, without a CMS, without
   a
-  charting library, and without Three.js — including the WebGL hero
+  charting library, and without Three.js - including the WebGL hero
   shader
   and the View Transitions navigation.
 
@@ -102,44 +102,32 @@
 
   ## Repository structure
 
-  .
-  ├── README.md                              ← you are here
-  ├── package.json                           ← dependency reference
-  ├── tsconfig.json                          ← TypeScript config
-  ├── .gitignore
-  ├── docs/
-  │   ├── architecture.md                    ← Next.js 16 App Router
-  shape
-  │   ├── intersection-observer-reveal.md    ← scroll-reveal without
-  Framer
-  │   ├── view-transitions-nav.md            ← cross-page morph via
-  native API
-  │   ├── webgl-hero-shader.md               ← FBM noise + six mount
-  guards
-  │   ├── reduced-motion-and-touch.md        ← accessibility patterns
-  │   ├── case-study-layout-pattern.md       ← 9-section structure
-  │   └── svg-architecture-diagrams.md       ← custom flow diagrams in
-   SVG
-  └── snippets/
-      ├── README.md
-      ├── use-scroll-reveal.ts               ← custom
-  IntersectionObserver hook
-      ├── scroll-reveal-wrapper.tsx          ←  wrapper component
-      ├── use-view-transition-router.ts      ← View Transitions
-  navigation hook
-      ├── hero-shader.tsx                    ← hand-written WebGL
-  background
-      ├── split-text.tsx                     ← per-letter reveal
-  component
-      ├── tech-stack-marquee.tsx             ← seamless
-  duplicated-track marquee
-      ├── back-to-top-progress.tsx           ← scroll-progress SVG
-  ring
-      ├── typewriter-cycle.tsx               ← role-cycling typewriter
-      └── architecture-diagram.tsx           ← SVG flow diagram
-  component 
+```
+.
+|-- README.md
+|-- package.json
+|-- tsconfig.json
+|-- docs/
+|   |-- architecture.md
+|   |-- case-study-layout-pattern.md
+|   |-- intersection-observer-reveal.md
+|   `-- svg-architecture-diagrams.md
+`-- snippets/
+    |-- README.md
+    |-- architecture-diagram.tsx
+    |-- back-to-top-progress.tsx
+    |-- hero-shader.tsx
+    |-- reading-progress.tsx
+    |-- scroll-reveal-wrapper.tsx
+    |-- split-text.tsx
+    |-- typewriter-cycle.tsx
+    |-- use-scroll-reveal.ts
+    `-- use-view-transition-router.ts
+```
 
-  ---
+The repository contains selected reusable patterns from the live portfolio. Private portfolio copy, project data, visual assets, and full case-study source files are intentionally not included.
+
+---
 
   ## Tech stack
 
@@ -173,14 +161,14 @@
   transition does in a 25-line hook. GSAP adds more. The custom
   approach
   also runs the visible animations off the main thread (CSS keyframes,
-  GPU transforms) rather than via `requestAnimationFrame` in JS —
+  GPU transforms) rather than via `requestAnimationFrame` in JS -
   which
   matters when the browser is also painting a new route or running
   hydration.
   
   The WebGL shader is the one place where doing it from scratch is
   harder    
-  than reaching for a library — Three.js would be ~30 lines to set
+  than reaching for a library - Three.js would be ~30 lines to set
   this
   up. The hand-written version is ~200 lines including all six mount
   guards, the rAF loop, the IntersectionObserver pause, the
@@ -204,12 +192,7 @@
   - **The Hero copy, About copy, contact form copy.** These are
   personal
     content.
-  - **The full HeroShader component** with the exact accent palette,
-    Hero-specific positioning, and the layered conic-gradient
-  fallback.
-    The snippet here is a reference version; full integration is in
-  the
-    private portfolio repo.
+  - **The full Hero section integration.** The reusable `hero-shader.tsx` snippet is included here, but the exact page copy, accent palette, positioning, fallback styling, and visual assets remain in the private portfolio repo.
   - **CV PDF.** Lives at the live site under
   `/valentino-veljanovski-cv.pdf`.
   - **Custom assets.** Logos, illustrations, fonts.
@@ -218,34 +201,18 @@
 
   ## About
 
-  Built by [Valentino Veljanovski](https://valentinoveljanovski.de),
-  automation developer based in München. The case study for this
-  portfolio
-  is at
-  [valentinoveljanovski.de/projects/portfolio](https://valentinoveljan
-  ovski.de/projects/portfolio).
-  
-  Companion repositories cover related patterns:
+Built by [Valentino Veljanovski](https://valentinoveljanovski.de), automation developer based in Munich. The live case study for this portfolio is available at [valentinoveljanovski.de/projects/portfolio](https://valentinoveljanovski.de/projects/portfolio).
 
-  - [`Valentino-Veljanovski/DISPO`](https://github.com/Valentino-Velja
-  novski/DISPO):
-    Microsoft 365 + DocuSign + AI-assisted operations
-  - [`Valentino-Veljanovski/Reklamation`](https://github.com/Valentino
-  -Veljanovski/Reklamation):
-    Slack-based case management 
-  - [`Valentino-Veljanovski/BauScope-Control-Center`](https://github.c
-  om/Valentino-Veljanovski/BauScope-Control-Center):
-    Role-based Slack platform with DocuSign HMAC
-  - [`Valentino-Veljanovski/BauScope-3D`](https://github.com/Valentino
-  -Veljanovski/BauScope-3D):
-    Next.js B2B landing page patterns
-  - [`Valentino-Veljanovski/static-corporate-site-patterns`](https://g
-  ithub.com/Valentino-Veljanovski/static-corporate-site-patterns):
-    PHP + Apache + service worker patterns
+Companion repositories cover related patterns:
 
-  ---
+- [`Valentino-Veljanovski/multi-region-dispatch-automation-pattern`](https://github.com/Valentino-Veljanovski/multi-region-dispatch-automation-pattern): Microsoft 365, DocuSign, Slack, and n8n dispatch automation patterns.
+- [`Valentino-Veljanovski/internal-reclamation-case-management-dashboard`](https://github.com/Valentino-Veljanovski/internal-reclamation-case-management-dashboard): Slack-based reclamation case management dashboard patterns.
+- [`Valentino-Veljanovski/consent-based-3d-scan-control-center`](https://github.com/Valentino-Veljanovski/consent-based-3d-scan-control-center): Role-based Slack control center for consent-first 3D scan operations.
+- [`Valentino-Veljanovski/BauScope-3D`](https://github.com/Valentino-Veljanovski/BauScope-3D): Next.js B2B landing page patterns.
+- [`Valentino-Veljanovski/static-corporate-site-patterns`](https://github.com/Valentino-Veljanovski/static-corporate-site-patterns): PHP, Apache, and service worker patterns.
 
-  ## Viewing Notice
+---
+## Viewing Notice
 
   This repository is published for portfolio demonstration and
   educational

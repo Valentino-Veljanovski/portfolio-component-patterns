@@ -1,10 +1,10 @@
 /**
- * ArchitectureDiagram — SVG flow diagram on a row/col grid
+ * ArchitectureDiagram - SVG flow diagram on a row/col grid
  * =========================================================
  *
  * Renders a flow diagram from a list of nodes (with grid
  * coordinates) and a list of edges (from → to id pairs). No
- * auto-layout, no D3, no charting library — just SVG output from
+ * auto-layout, no D3, no charting library - just SVG output from
  * raw input data.
  *
  * Why grid coordinates instead of pixel coordinates: forces visual

@@ -99,20 +99,20 @@ Total: ~50 lines of TypeScript. Zero dependencies.
 
 ## Knobs that matter
 
-**`threshold: 0.15`** — fire when 15% of the element is in view.
+**`threshold: 0.15`** - fire when 15% of the element is in view.
 A fraction of element area, not a pixel value. Lower (0.05) =
 fires almost immediately, animation can be missed if user scrolls
 fast. Higher (0.5) = fires later, can feel laggy. 0.12–0.15 is a
 good default for blocks of content; lower for short elements,
 higher for very tall ones.
 
-**`observer.unobserve(el)` after firing** — critical. Without it,
+**`observer.unobserve(el)` after firing** - critical. Without it,
 scrolling up and back down triggers the observer again, and
 without `once: true` the animation replays. The hook is
-"fire-and-forget by design" — the IntersectionObserver disconnects
+"fire-and-forget by design" - the IntersectionObserver disconnects
 itself after the first hit.
 
-**`delay` prop** — stagger child reveals by passing different
+**`delay` prop** - stagger child reveals by passing different
 delays:
 
 ```tsx
@@ -143,14 +143,14 @@ Two solutions:
 1. Don't wrap above-the-fold content in `ScrollReveal`. Animate
    it with regular CSS keyframes triggered on mount instead.
 2. Use `useLayoutEffect` instead of `useEffect` (fires before
-   paint). But that throws SSR warnings — needs careful
+   paint). But that throws SSR warnings - needs careful
    `typeof window !== 'undefined'` guarding.
 
 The first solution is cleaner. Don't animate the hero.
 
 **Reduced motion.** Users with `prefers-reduced-motion: reduce`
 should see content without animation. The wrapper doesn't handle
-this by default — it should:
+this by default - it should:
 
 ```tsx
 const prefersReducedMotion =

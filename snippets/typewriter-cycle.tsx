@@ -1,12 +1,12 @@
 /**
- * TypewriterCycle — role-cycling typewriter
+ * TypewriterCycle - role-cycling typewriter
  * ==========================================
  *
  * Cycles through a list of strings with a state-machine animation:
  *   typing → waiting → deleting → next role → typing → …
  *
  * Renders the current state via React state, but the state machine
- * itself lives in a ref — this avoids a re-render storm (one
+ * itself lives in a ref - this avoids a re-render storm (one
  * setState per character at speed = perf disaster). Only the text
  * content triggers a render.
  *
@@ -83,7 +83,7 @@ export default function TypewriterCycle({
           s.text = role.slice(0, s.text.length + 1);
           setDisplayText(s.text);
         } else {
-          // Done typing — switch to wait phase
+          // Done typing - switch to wait phase
           s.phase = "waiting";
           s.waitCounter = 0;
         }
@@ -98,7 +98,7 @@ export default function TypewriterCycle({
           s.text = s.text.slice(0, -1);
           setDisplayText(s.text);
         } else {
-          // Done deleting — advance role index, start typing again
+          // Done deleting - advance role index, start typing again
           s.roleIndex = (s.roleIndex + 1) % roles.length;
           s.phase = "typing";
         }

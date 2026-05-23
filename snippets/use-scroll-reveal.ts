@@ -1,5 +1,5 @@
 /**
- * useScrollReveal — IntersectionObserver hook
+ * useScrollReveal - IntersectionObserver hook
  * ============================================
  *
  * Returns a ref and a boolean. Attach the ref to any element;
@@ -47,7 +47,7 @@ export function useScrollReveal(threshold = 0.15) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Fire once, then stop observing — never replay.
+          // Fire once, then stop observing - never replay.
           observer.unobserve(el);
         }
       },

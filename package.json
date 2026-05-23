@@ -1,26 +1,27 @@
 {
   "name": "portfolio-component-patterns",
   "version": "1.0.0",
-  "description": "Reference component and hook patterns extracted from a Next.js 15 personal portfolio: custom IntersectionObserver scroll-reveal, role-cycling typewriter, custom SVG architecture diagrams.",
+  "description": "Reference component and hook patterns extracted from a Next.js 16 personal portfolio: custom IntersectionObserver scroll reveal, View Transitions navigation, WebGL hero shader, SplitText reveal, scroll progress, and SVG architecture diagrams.",
   "private": true,
   "license": "UNLICENSED",
   "author": "Valentino Veljanovski",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Valentino-n8n/portfolio-component-patterns"
+    "url": "https://github.com/Valentino-Veljanovski/portfolio-component-patterns"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "next": "^15.0.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "next": "16.2.3",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "shiki": "^4.0.2"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
-    "typescript": "^5.5.0"
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
   }
 }

@@ -2,7 +2,7 @@
 
 A small React component that renders a flow diagram from a list
 of nodes (with grid coordinates) and edges. No D3, no charting
-library, no Mermaid runtime — just SVG output from raw input
+library, no Mermaid runtime - just SVG output from raw input
 data.
 
 ## Why custom
@@ -13,22 +13,22 @@ Generic charting libraries (D3 force layouts, vis.js, Mermaid)
 work but always feel slightly off:
 
 - **Auto-layout fights you.** A force-directed layout produces a
-  different shape every render — fine for exploration, awful for
+  different shape every render - fine for exploration, awful for
   publication. Mermaid's auto-layout is more predictable but
   produces "looks like Mermaid" diagrams that all blur together.
 - **Styling is fragile.** Theme changes mean fighting the
   library's CSS. Custom hover states, animations on specific
-  nodes, conditional highlighting — all become exceptions.
+  nodes, conditional highlighting - all become exceptions.
 - **Bundle cost.** D3 + react-d3-graph or similar is 100kB+ for
   what amounts to "draw rectangles and arrows".
 
 The pattern here:
 
 - **Manual node placement** via `row` and `col` coordinates on
-  each node — the author decides exactly where each node sits.
-- **Manual edge list** — explicit `from → to` pairs, not
+  each node - the author decides exactly where each node sits.
+- **Manual edge list** - explicit `from → to` pairs, not
   auto-routed.
-- **Direct SVG output** — full control over rendering, hover
+- **Direct SVG output** - full control over rendering, hover
   states, and animations.
 
 The cost: the author has to think about the layout, not the tool.
@@ -96,7 +96,7 @@ taller gaps make the diagram feel less dense.
 The temptation when building this kind of component is to let the
 author specify exact pixel positions: `{ id: "foo", x: 240, y: 80 }`.
 That gives full freedom but produces inconsistent diagrams across
-case studies — different nodes, different sizes.
+case studies - different nodes, different sizes.
 
 Forcing row/col coordinates means:
 
@@ -114,7 +114,7 @@ diagram. The visual consistency across the portfolio is worth it.
 
 Edges are straight lines between node centers. No bends, no
 auto-routing. If two nodes overlap when connected (e.g. a node
-in row 0 col 0 connecting to row 0 col 2 — the line passes
+in row 0 col 0 connecting to row 0 col 2 - the line passes
 through col 1's node), the fix is to rearrange, not to add edge
 routing.
 
@@ -137,7 +137,7 @@ Hovering a node:
 - Adds a subtle drop shadow
 
 This is implemented in plain CSS injected via
-`dangerouslySetInnerHTML` at the component root — no `<style
+`dangerouslySetInnerHTML` at the component root - no `<style
 jsx>` or runtime CSS-in-JS. The styles only apply within the SVG
 because the selectors are scoped to `.ad-svg-node`.
 
@@ -165,7 +165,7 @@ function wrapText(text: string, maxChars: number): string[] {
 }
 ```
 
-If a label needs more than 3 lines, it's the wrong label —
+If a label needs more than 3 lines, it's the wrong label -
 shorten it instead of cramming text in.
 
 ## Mobile

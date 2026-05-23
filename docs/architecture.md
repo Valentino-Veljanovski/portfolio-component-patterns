@@ -1,11 +1,11 @@
 # Architecture
 
-A Next.js 15 App Router site, structured as one home page + a
+A Next.js 16 App Router site, structured as one home page + a
 fixed set of per-project case study pages, with a small library of
 custom hooks and components shared across them.
 
-The interesting decisions are about *what to leave out* — no UI
-framework, no animation library, no CMS — and how the pieces that
+The interesting decisions are about *what to leave out* - no UI
+framework, no animation library, no CMS - and how the pieces that
 remain stay maintainable.
 
 ## High-level shape
@@ -17,11 +17,11 @@ remain stay maintainable.
 │  page.tsx                ← home page (composes section components)│
 │                                                                  │
 │  projects/[slug]/page.tsx← dynamic case study page               │
-│  projects/dispo/         ← per-project case study folder         │
-│    └── DispoCaseStudy.tsx                                        │
-│  projects/reklamation/                                           │
-│  projects/matterport-pro3/                                       │
-│  projects/haftungszertifikat/                                    │
+│  projects/multi-region-dispatch-automation/         ← per-project case study folder         │
+│    └── MultiRegionDispatchCaseStudy.tsx                                        │
+│  projects/internal-reclamation-case-management-dashboard/                                           │
+│  projects/consent-based-3d-scan-control-center/                                       │
+│  projects/digital-signature-workflow-automation/                                    │
 │  projects/bauscope-landing/                                      │
 │  projects/corporate-website/                                     │
 │  projects/portfolio/                                             │
@@ -61,9 +61,9 @@ A portfolio is mostly long-form text wrapped in some chrome. Tailwind
 or a UI kit makes sense when you have many small interactive UI
 components (buttons, dropdowns, modals, forms). For a portfolio:
 
-- The interactive surface is almost zero — a contact form, a nav
+- The interactive surface is almost zero - a contact form, a nav
   menu. That's it.
-- The content surface is huge — long case studies with custom
+- The content surface is huge - long case studies with custom
   layouts per project.
 
 CSS variables on `:root` plus inline `style={{...}}` props give:
@@ -152,16 +152,16 @@ Every case study in `projects/<slug>/` follows the same 9-section
 layout:
 
 ```
-00 — Header with title, status, role
-01 — Project context (what, why, when)
-02 — Problem statement
-03 — Approach (high-level)
-04 — Architecture (with custom SVG diagram)
-05 — Detailed walkthrough
-06 — Tools and decisions
-07 — Quality & outcomes
-08 — Privacy / publication notes
-09 — Proof / Evidence (links to companion pattern repos)
+00 - Header with title, status, role
+01 - Project context (what, why, when)
+02 - Problem statement
+03 - Approach (high-level)
+04 - Architecture (with custom SVG diagram)
+05 - Detailed walkthrough
+06 - Tools and decisions
+07 - Quality & outcomes
+08 - Privacy / publication notes
+09 - Proof / Evidence (links to companion pattern repos)
 ```
 
 This consistency is deliberate. A reader who's read one case
