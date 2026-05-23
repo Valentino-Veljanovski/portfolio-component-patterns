@@ -1,4 +1,4 @@
-# Portfolio Component Patterns
+# Valentino Veljanovski Portfolio Component Patterns
 
   A reference for building a personal developer portfolio in Next.js
   16:
@@ -201,7 +201,7 @@ The repository contains selected reusable patterns from the live portfolio. Priv
 
   ## About
 
-Built by [Valentino Veljanovski](https://valentinoveljanovski.de), automation developer based in Munich. The live case study for this portfolio is available at [valentinoveljanovski.de/projects/portfolio](https://valentinoveljanovski.de/projects/portfolio).
+Built by [Valentino Veljanovski](https://valentinoveljanovski.de), automation developer based in Munich. The live case study for this portfolio is available at [valentinoveljanovski.de/projects/valentino-veljanovski-portfolio-component-patterns](https://valentinoveljanovski.de/projects/valentino-veljanovski-portfolio-component-patterns).
 
 Companion repositories cover related patterns:
 
