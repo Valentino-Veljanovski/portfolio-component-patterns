@@ -22,7 +22,7 @@ remain stay maintainable.
 │  projects/internal-reclamation-case-management-dashboard/                                           │
 │  projects/consent-based-3d-scan-control-center/                                       │
 │  projects/digital-signature-workflow-automation/                                    │
-│  projects/bauscope-landing/                                      │
+│  projects/3d-service-landing-page-prototype/                                      │
 │  projects/corporate-website/                                     │
 │  projects/valentino-veljanovski-portfolio-snippets/                                             │
 │                                                                  │
