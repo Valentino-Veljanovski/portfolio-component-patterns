@@ -1,4 +1,4 @@
-# Valentino Veljanovski Portfolio Component Patterns
+# Valentino Veljanovski Portfolio Snippets
 
 A reference for building a personal developer portfolio in Next.js
 16:
