@@ -201,7 +201,7 @@ The repository contains selected reusable patterns from the live portfolio. Priv
 
   ## About
 
-Built by [Valentino Veljanovski](https://valentinoveljanovski.de), automation developer based in Munich. The live case study for this portfolio is available at [valentinoveljanovski.de/projects/valentino-veljanovski-portfolio-component-snippets](https://valentinoveljanovski.de/projects/valentino-veljanovski-portfolio-component-snippets).
+Built by [Valentino Veljanovski](https://valentinoveljanovski.de), automation developer based in Munich. The live case study for this portfolio is available at [valentinoveljanovski.de/projects/valentino-veljanovski-portfolio-snippets](https://valentinoveljanovski.de/projects/valentino-veljanovski-portfolio-snippets).
 
 Companion repositories cover related patterns:
 

@@ -24,7 +24,7 @@ remain stay maintainable.
 │  projects/digital-signature-workflow-automation/                                    │
 │  projects/bauscope-landing/                                      │
 │  projects/corporate-website/                                     │
-│  projects/valentino-veljanovski-portfolio-component-snippets/                                             │
+│  projects/valentino-veljanovski-portfolio-snippets/                                             │
 │                                                                  │
 │  impressum/page.tsx      ← required German legal page            │
 │  datenschutz/page.tsx    ← privacy policy                        │
