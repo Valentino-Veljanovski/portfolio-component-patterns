@@ -1,5 +1,5 @@
 {
-  "name": "valentino-veljanovski-portfolio-component-patterns",
+  "name": "valentino-veljanovski-portfolio-component-snippets",
   "version": "1.0.0",
   "description": "Reference component and hook patterns extracted from a Next.js 16 personal portfolio: custom IntersectionObserver scroll reveal, View Transitions navigation, WebGL hero shader, SplitText reveal, scroll progress, and SVG architecture diagrams.",
   "private": true,
@@ -7,7 +7,7 @@
   "author": "Valentino Veljanovski",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Valentino-Veljanovski/valentino-veljanovski-portfolio-component-patterns"
+    "url": "https://github.com/Valentino-Veljanovski/valentino-veljanovski-portfolio-component-snippets"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"
